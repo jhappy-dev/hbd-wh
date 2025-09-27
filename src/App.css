@@ -21,6 +21,7 @@ body {
   justify-content: center;
 }
 
+
 /* 홈일 때 */
 .custom-header.home {
   background-color: #fffefd;
@@ -28,6 +29,22 @@ body {
 
 .header-text.home {
   color: #7E5800;
+}
+
+.fade-in {
+  animation: fadeIn 1.2s ease-out forwards; /* ← 더 느리고 부드럽게 */
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* 아래에서 살짝 올라오게 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 다른 페이지일 때 */
@@ -73,11 +90,6 @@ button:active {
   background-color: #48a3b4; /* 눌렸을 때 색상 */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); /* 눌리면서 그림자 작아짐 */
   transform: translateY(2px); /* 아래로 눌림 */
-}
-
-img {
-  max-width: 100%;
-  border-radius: 10px;
 }
 
 .container {

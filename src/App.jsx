@@ -20,10 +20,10 @@ function App() {
         <div className="app-wrapper">
           <Header />
           <Routes>
-            <Route path="/test" element={<Home />} />
-            <Route path="/test/about" element={<AboutUs />} />
-            <Route path="/test/present" element={<Present />} />
-            <Route path="/test/letter" element={<Letter />} />
+            <Route path="/hbd-wh" element={<Home />} />
+            <Route path="/hbd-wh/about" element={<AboutUs />} />
+            <Route path="/hbd-wh/present" element={<Present />} />
+            <Route path="/hbd-wh/letter" element={<Letter />} />
           </Routes>
         </div>
       </Router>

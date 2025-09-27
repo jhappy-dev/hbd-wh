@@ -17,19 +17,19 @@ export default defineConfig({
 
       includeAssets: ['image/*.png'], // 캐싱
       manifest: { // 앱 정보 보관
-        name: 'test-app',
-        short_name: 'Test',
-        description: '앱 테스트',
+        name: '♡우혁이생일♡',
+        short_name: 'HBD-WH',
+        description: '우혁이~ 생일축하해♡',
         theme_color: '#7E5800', // 폰의 status bar 색상
         diaply: 'standalone', // 웹앱처럼 보이게 - default가 이거임
         icons: [ // 192x192, 512x512 필요함
           {
-            src: 'img/image2.png',
+            src: 'img/party.png',
             sizes: '192x192',
             type: 'img/png'
           },
           {
-            src: 'img/image3.png',
+            src: 'img/movie.png',
             sizes: '512x512',
             type: 'image/png'
           }
@@ -37,5 +37,5 @@ export default defineConfig({
       },
     })
   ],
-  base: '/test/'
+  base: '/hbd-wh/'
 })

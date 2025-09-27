@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://devjhappy.github.io/test",
+  "homepage": "https://jhappy-dev.github.io/hbd-wh",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

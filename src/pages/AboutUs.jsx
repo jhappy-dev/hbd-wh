@@ -1,10 +1,12 @@
 import { Container, Row, Col, Card, Button, Modal, Carousel } from 'react-bootstrap';
 import { useState, useRef, useEffect } from 'react';
 import { gallery } from '../data.js';
+import { useNavigate } from 'react-router-dom';
 
 function AboutUs() {
   const scrollRef = useRef(null);
   const [selectedIdx, setSelectedIdx] = useState(null);
+  const navigate = useNavigate();
 
   // 🆕 이미지 확대 모달 상태
   const [showImgModal, setShowImgModal] = useState(false);
@@ -49,10 +51,12 @@ function AboutUs() {
     }
   };
 
+  const handleNextClick = () => { navigate('/hbd-wh/present');}
+
   return (
     <Container fluid className="aboutus-container bg-white rounded shadow-sm">
       <div className="d-flex justify-content-end mb-4">
-        <Button variant="secondary">🎁 선물 보러가기</Button>
+        <Button onClick={handleNextClick} variant="secondary"> <span> → </span> 선물 보러가기</Button>
       </div>
 
       <Row xs={4} sm={4} md={6} lg={6} xl={6} className="g-2">
@@ -63,7 +67,7 @@ function AboutUs() {
                 <Card.Img variant="top" className="card-img-top" src={item.thumbnail} />
                 <Card.Body>
                   <Card.Title className="fs-6 mb-1 text-start">{item.title}</Card.Title>
-                  <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text>
+                  {/* <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text> */}
                 </Card.Body>
               </Card>
             </div>
@@ -168,14 +172,14 @@ function AboutUs() {
                     />
                     <div className="ms-3">
                       <div className="fw-bold">{item.title}</div>
-                      <div className="text-muted small">{item.date}</div>
+                      {/* <div className="text-muted small">{item.date}</div> */}
                     </div>
                   </div>
                     
                   {/* 🖼 이미지 + 편지 내용 */}
                   <div className="px-3 pt-3 pb-2">
                     {item.images && item.images.length > 0 && (
-                      <Row xs={4} sm={4} md={5} className="g-2 mb-3">
+                      <Row xs={3} sm={3} md={3} className="g-2 mb-3">
                         {item.images.map((imgSrc, i) => (
                           <Col key={i}>
                             <div
@@ -195,8 +199,8 @@ function AboutUs() {
                                 className="img-fluid"
                                 style={{
                                   objectFit: 'cover',
-                                  height: '100px',
-                                  width: '100%',
+                                  height: '150px',
+                                  width: '150px',
                                   borderRadius: '8px',
                                 }}
                               />
@@ -218,7 +222,7 @@ function AboutUs() {
       </Modal>
 
       {/* 🆕 이미지 확대용 Modal */}
-      <Modal
+      {/* <Modal
         show={showImgModal}
         onHide={() => setShowImgModal(false)}
         size="md"   // lg → md
@@ -261,7 +265,7 @@ function AboutUs() {
             </Carousel>
           )}
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </Container>
   );
 }
