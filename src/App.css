@@ -61,8 +61,15 @@ h1, h2, h3 {
 }
 
 .banner-image {
-  width: 500px;
-  height: auto; /* 비율 유지 */
+  width: 100%;
+  max-width: 500px;  /* 데스크탑에서는 500px까지만 */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.aboutus-banner {
+  background-color: #fffefd;
 }
 
 button {
@@ -115,6 +122,8 @@ button:active {
 .home-container {
   text-align: center;
   padding: 40px 20px;
+  max-width: 100%;
+  overflow-x: hidden; /* 가로 넘침 방지 */
 }
 
 .home-container button {

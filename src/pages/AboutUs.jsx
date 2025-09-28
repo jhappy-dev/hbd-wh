@@ -55,10 +55,39 @@ function AboutUs() {
 
   return (
     <Container fluid className="aboutus-container bg-white rounded shadow-sm">
-      <div className="d-flex justify-content-end mb-4">
-        <Button onClick={handleNextClick} variant="secondary"> <span> → </span> 선물 보러가기</Button>
+      <div
+        className="aboutus-banner p-4 mb-0 position-relative"
+      >
+        <div className="d-flex align-items-start">
+          {/* 왼쪽: 프로필 이미지 */}
+          <div className="me-3">
+            <img
+              src="img/231014_1.jpg"
+              alt="profile"
+              style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid #ccc',
+                backgroundColor: '#fff',
+              }}
+            />
+          </div>
+
+          {/* 오른쪽: 텍스트 + 버튼 */}
+          <div className="flex-grow-1 position-relative" style={{ width: '100%' }}>
+            <div style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
+              <div style={{marginBotton: '30px'}}>@woohyeok_love__jihyeon</div>
+              <div>♥ 20230211 ~ing</div>
+              <div>♥ 카드를 하나씩 눌러서</div>
+              <div>♥ 우리의 추억을 구경해봐 (ง ˙˘˙ )ว</div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <hr/>
       <Row xs={4} sm={4} md={6} lg={6} xl={6} className="g-2">
         {gallery.map((item, idx) => (
           <Col key={idx}>
@@ -66,8 +95,8 @@ function AboutUs() {
               <Card className="border-0 bg-transparent p-0">
                 <Card.Img variant="top" className="card-img-top" src={item.thumbnail} />
                 <Card.Body>
-                  <Card.Title className="fs-6 mb-1 text-start">{item.title}</Card.Title>
-                  {/* <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text> */}
+                  <Card.Title className="fs-6 mb-1 text-start card-title">{item.title}</Card.Title>
+                  <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text>
                 </Card.Body>
               </Card>
             </div>
@@ -172,7 +201,7 @@ function AboutUs() {
                     />
                     <div className="ms-3">
                       <div className="fw-bold">{item.title}</div>
-                      {/* <div className="text-muted small">{item.date}</div> */}
+                      <div className="text-muted small">{item.date}</div>
                     </div>
                   </div>
                     
@@ -199,9 +228,9 @@ function AboutUs() {
                                 className="img-fluid"
                                 style={{
                                   objectFit: 'cover',
-                                  height: '150px',
-                                  width: '150px',
                                   borderRadius: '8px',
+                                  width: '100%',
+                                  aspectRatio: '1/1',
                                 }}
                               />
                             </div>
