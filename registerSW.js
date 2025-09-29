@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/hbd-wh/sw.js', { scope: '/hbd-wh/' })})}
