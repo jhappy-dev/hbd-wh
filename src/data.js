@@ -6,9 +6,9 @@ export const gallery = [
     title: '♡ 두근두근 ♡',
     date: '2023.01',
     letter: 
-`우리 첫 만남에 
-반가워~
-hello`
+`우리 첫 만남에 사당 코다차야에서 술 마시고 보드게임 하고, 두 번째 만났을 때는 강남에서 클라이밍 했지.
+그때 테이프를 해줄까 그냥 줄까도 고민하고, 어색할텐데 무슨 말을 해야할까, 어떻게 같이 다녀야하나 고민도 많았었어.
+근데 `
   },
   {
     icon: 'img/happy1.png',
@@ -445,6 +445,17 @@ hello`
     images: ['img/250917_1.jpg', 'img/250917_2.jpg', 'img/250917_3.jpg'],
     title: '♡ 행복한 생일 ♡',
     date: '2025.09',
+    letter: 
+`안뇽
+반가워~
+hello`
+  },
+  {
+    icon: 'img/angry.png',
+    thumbnail: 'img/251107_1.jpg',
+    images: ['img/251107_1.jpg', 'img/251107_2.jpg', 'img/251107_3.jpg'],
+    title: '♡ 경주 여행 ♡',
+    date: '2025.11',
     letter: 
 `안뇽
 반가워~

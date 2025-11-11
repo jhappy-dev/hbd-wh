@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/hbd-wh/dev-sw.js?dev-sw', { scope: '/hbd-wh/', type: 'classic' })
