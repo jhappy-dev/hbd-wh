@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Letter (Split Image Doors)</title>
+<style>
+body {
+  background: radial-gradient(circle at center, #f9f7f3, #e7e2dc);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Noto Serif KR', serif;
+}
+
+/* ======= 전체 컨테이너 ======= */
+.envelope-container {
+  position: relative;
+  width: 400px;
+  height: 250px;
+  perspective: 1200px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ======= 문 공통 스타일 ======= */
+.door {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  background-image: url('data:image/jpeg;base64,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'); /* ✅ 한 장의 이미지 */
+  background-size: 200% 100%; /* ✅ 양쪽이 절반씩 공유하도록 */
+  background-repeat: no-repeat;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+  transition: transform 1.2s ease;
+  backface-visibility: hidden;
+}
+
+/* ======= 왼쪽/오른쪽 문 구분 ======= */
+.left-door {
+  left: 0;
+  background-position: left center; /* 왼쪽 절반 */
+  transform-origin: left center;
+}
+
+.right-door {
+  right: 0;
+  background-position: right center; /* 오른쪽 절반 */
+  transform-origin: right center;
+}
+
+/* ======= 편지 내용 ======= */
+.letter-content {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,250,244,0.95);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: scale(0.98);
+}
+
+/* ======= hover 시 효과 ======= */
+.envelope-container:hover .left-door {
+  transform: rotateY(-120deg);
+}
+.envelope-container:hover .right-door {
+  transform: rotateY(120deg);
+}
+.envelope-container:hover .letter-content {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.3s;
+}
+
+/* hover 해제 시 즉시 사라지게 */
+.envelope-container:not(:hover) .letter-content {
+  transition-delay: 0s;
+}
+
+h2 {
+  color: #6b4f2a;
+  margin-bottom: 10px;
+}
+p {
+  color: #3b2b17;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="envelope-container">
+  <div class="door left-door"></div>
+  <div class="door right-door"></div>
+  <div class="letter-content">
+    <h2>Dear You,</h2>
+    <p>
+      하나의 장면이<br>
+      조용히 두 갈래로 열립니다.<br>
+      그 사이로, 마음이 전해져요 🌿
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
