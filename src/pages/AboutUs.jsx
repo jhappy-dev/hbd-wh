@@ -93,7 +93,11 @@ function AboutUs() {
           <Col key={idx}>
             <div className="flip-card" onClick={() => handleCardClick(idx)}>
               <Card className="border-0 bg-transparent p-0">
-                <Card.Img variant="top" className="card-img-top" src={item.thumbnail} />
+                <Card.Img 
+                  variant="top" 
+                  className="card-img-top" 
+                  loading="lazy"
+                  src={item.thumbnail} />
                 <Card.Body>
                   <Card.Title className="fs-6 mb-1 text-start card-title">{item.title}</Card.Title>
                   <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text>
@@ -224,6 +228,7 @@ function AboutUs() {
                             >
                               <img
                                 src={imgSrc}
+                                loading="lazy"
                                 alt={`img-${i}`}
                                 className="img-fluid"
                                 style={{

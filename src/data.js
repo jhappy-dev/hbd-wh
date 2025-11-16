@@ -265,8 +265,8 @@ hello`
   },
   {
     icon: 'img/angry.png',
-    thumbnail: 'img/231230_1.JPG',
-    images: ['img/231230_1.JPG', 'img/231230_2.jpg'],
+    thumbnail: 'img/231230_1.jpg',
+    images: ['img/231230_1.jpg', 'img/231230_2.JPG'],
     title: '♡ 연말 데이트 ♡',
     date: '2023.12',
     letter: 
