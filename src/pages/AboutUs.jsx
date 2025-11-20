@@ -12,6 +12,7 @@ function AboutUs() {
   const [showImgModal, setShowImgModal] = useState(false);
   const [activeImgIdx, setActiveImgIdx] = useState(0);
   const [activeContentIdx, setActiveContentIdx] = useState(null); // 어떤 gallery 컨텐츠인지
+  const [isProfileImg, setIsProfileImg] = useState(false); // ✅ 프로필 이미지인지 구분
 
   const handleCardClick = (index) => setSelectedIdx(index);
   const handleClose = () => setSelectedIdx(null);
@@ -64,6 +65,12 @@ function AboutUs() {
             <img
               src="img/231014_1.jpg"
               alt="profile"
+              onClick={() => {
+                setIsProfileImg(true);          // ✅ 프로필 모드 켜기
+                setShowImgModal(true);          // ✅ 모달 열기
+                setActiveContentIdx(null);      // gallery 아님
+                setActiveImgIdx(0);             // 첫 번째 (유일한) 이미지
+              }}
               style={{
                 width: '100px',
                 height: '100px',
@@ -71,6 +78,7 @@ function AboutUs() {
                 objectFit: 'cover',
                 border: '2px solid #ccc',
                 backgroundColor: '#fff',
+                cursor: 'pointer',              // ✅ 클릭 가능한 표시
               }}
             />
           </div>
@@ -78,7 +86,7 @@ function AboutUs() {
           {/* 오른쪽: 텍스트 + 버튼 */}
           <div className="flex-grow-1 position-relative" style={{ width: '100%' }}>
             <div style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
-              <div style={{marginBotton: '30px'}}>@woohyeok_love__jihyeon</div>
+              <div style={{marginBotton: '30px'}}>@woohyeok_love_jihyeon</div>
               <div>♥ 20230211 ~ing</div>
               <div>♥ 카드를 하나씩 눌러서</div>
               <div>♥ 우리의 추억을 구경해봐 (ง ˙˘˙ )ว</div>
@@ -100,7 +108,7 @@ function AboutUs() {
                   src={item.thumbnail} />
                 <Card.Body>
                   <Card.Title className="fs-6 mb-1 text-start card-title">{item.title}</Card.Title>
-                  <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text>
+                  {/* <Card.Text className="text-muted mb-0 text-end">{item.date}</Card.Text> */}
                 </Card.Body>
               </Card>
             </div>
@@ -254,52 +262,45 @@ function AboutUs() {
           </Modal.Body>
         )}
       </Modal>
-
-      {/* 🆕 이미지 확대용 Modal */}
-      {/* <Modal
+      {/* 🖼 이미지 확대 모달 */}
+      <Modal
         show={showImgModal}
-        onHide={() => setShowImgModal(false)}
-        size="md"   // lg → md
+        onHide={() => {
+          setShowImgModal(false);
+          setIsProfileImg(false);        // ✅ 프로필 이미지 모드 종료
+        }}
+        size="lg"
         centered
-        dialogClassName="image-zoom-dialog"
-      >   
-        <Modal.Body
-          className="p-0 d-flex justify-content-center align-items-center"
-          style={{ 
-            backgroundColor: 'white',
-            height: '50vh' }}
-        >
-          {activeContentIdx !== null && (
-            <Carousel
-              activeIndex={activeImgIdx}
-              onSelect={(i) => setActiveImgIdx(i)}
-              interval={null}
-              variant="dark"
-              style={{
-                      maxWidth: '250px',   // ✅ 여기에도 지정 가능
-                      maxHeight: '70vh',
-                      objectFit: 'contain',
-                      padding: "20px"
-                    }}
-            >
-              {gallery[activeContentIdx].images.map((imgSrc, i) => (
-                <Carousel.Item key={i}>
-                  <img
-                    src={imgSrc}
-                    alt={`zoom-${i}`}
-                    className="d-block mx-auto"
-                    style={{
-                      maxHeight: '70vh',
-                      objectFit: 'contain'
-                    }}
-                    onClick={() => setShowImgModal(false)}
-                  />
-                </Carousel.Item>
-              ))}
-            </Carousel>
+      >
+        <Modal.Header closeButton />
+        <Modal.Body>
+          {isProfileImg ? (
+            // ✅ 프로필 이미지 모드
+            <img
+              src="img/231014_1.jpg"
+              alt="profile-large"
+              className="d-block mx-auto"
+              style={{ maxHeight: '80vh', objectFit: 'contain', width: '100%' }}
+            />
+          ) : (
+            // ✅ 기존 gallery 이미지 슬라이드
+            activeContentIdx !== null && (
+              <Carousel activeIndex={activeImgIdx} onSelect={(i) => setActiveImgIdx(i)} interval={null}>
+                {gallery[activeContentIdx].images.map((imgSrc, i) => (
+                  <Carousel.Item key={i}>
+                    <img
+                      src={imgSrc}
+                      alt={`slide-${i}`}
+                      className="d-block w-100"
+                      style={{ maxHeight: '80vh', objectFit: 'contain' }}
+                    />
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            )
           )}
         </Modal.Body>
-      </Modal> */}
+      </Modal>
     </Container>
   );
 }
