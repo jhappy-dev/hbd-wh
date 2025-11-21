@@ -194,10 +194,6 @@ button:active {
   margin: 10px;
 }
 
-.present-page {
-  padding: 30px;
-}
-
 .card img {
   object-fit: cover;
   width: 100%;
@@ -353,104 +349,6 @@ button:active {
   border-bottom: 2px solid black;
 }
 
-.envelope {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-top: 100px solid transparent;
-  border-right: 150px solid #FFDDE2;
-  border-bottom: 100px solid #FFDDE2;
-  border-left: 150px solid #FECDD3;
-  z-index: 3;
-}
-
-.letter {
-  position: absolute;
-  top: 0;
-  width: 80%;
-  height: 80%;
-  background-color: #FFF5F6;
-  border-radius: 15px;
-  z-index: 2;
-  transition: 0.5s;
-  cursor: grab; /* PC에서도 테스트 가능 */
-  touch-action: none; /* 모바일에서 스크롤 대신 drag 동작 인식 */
-}
-
-.letter p {
-  text-align: center;
-  font-size: 30px;
-  margin-top: 30px;
-  color: #3B4049;
-}
-
-.letter:active {
-  cursor: grabbing;
-}
-
-.wrapper:hover .lid.one {
-    transform: rotateX(90deg);
-    transition-delay: 0s;
-}
-
-.wrapper:hover .lid.two {
-    transform: rotateX(180deg);
-    transition-delay: 0.25s;
-}
-
-.wrapper:hover .letter {
-  transform: translateY(-50px);
-  transition-delay: 0.5s;
-}
-
-
-/* 전체화면 레이어 */
-.letter-fullscreen {
-  position: fixed;
-  inset: 0; /* top, right, bottom, left = 0 */
-  background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999; /* 봉투보다 위에 */
-  animation: fadeIn 0.3s ease;
-}
-
-/* 전체화면 편지 */
-.letter-content {
-  background: #fff8e7;
-  padding: 30px;
-  border-radius: 16px;
-  border: 1px solid #e4d1b9;
-  max-width: 600px;
-  width: 80%;
-  font-size: 18px;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  animation: slideUp 0.4s ease;
-  position: relative;
-}
-
-/* 닫기 버튼 */
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 6px 12px;
-  background: #f48fb1;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-.close-btn:hover {
-  background: #ec6c93;
-}
-
 /* 등장 애니메이션 */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -485,3 +383,373 @@ button:active {
     font-size: 18px; /* ♥HBD♥ 텍스트도 줄이기 */
   }
 }
+
+/**
+편지
+*/
+/* ===== 색상/값 (SCSS → CSS 변환) ===== */
+:root {
+  --color-env: #e7c7a7;      /* 바깥 봉투 색 (밝은 갈색) */
+  --color-env2: rgb(202, 157, 111);     /* 포켓 아래쪽 음영 */
+  --color-flap: #b38456;     /* 봉투 뚜껑 (좀 더 진하게) */
+  --color-bg: #f4ebe2;       /* 화면 배경 (따뜻한 아이보리) */
+  --color-heart: #d12929;    /* 하트 예쁜 빨강 */
+
+  --env-border-radius: 6px;
+  --env-width: 280px;
+  --env-height: 180px;
+  --heart-width: 50px;
+}
+
+/* 배경 */
+body {
+  background-color: var(--color-bg);
+}
+
+/* 전체 wrapper */
+.envlope-wrapper {
+  height: calc(var(--env-height) + 200px);
+}
+
+/* ===== 봉투 전체 ===== */
+#envelope {
+  position: relative;
+  width: var(--env-width);
+  height: var(--env-height);
+  border-bottom-left-radius: var(--env-border-radius);
+  border-bottom-right-radius: var(--env-border-radius);
+  margin-left: auto;
+  margin-right: auto;
+  top: 150px;
+  background-color: var(--color-flap);
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+
+/* 공통 front */
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+/* ===== 봉투 뚜껑 flap ===== */
+.flap {
+  border-left: calc(var(--env-width) / 2) solid transparent;
+  border-right: calc(var(--env-width) / 2) solid transparent;
+  border-bottom: calc(var(--env-height) / 2 - 8px) solid transparent;
+  border-top: calc(var(--env-height) / 2 + 8px) solid var(--color-flap);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+/* ===== 봉투 pocket ===== */
+.pocket {
+  border-left: calc(var(--env-width) / 2) solid var(--color-env);
+  border-right: calc(var(--env-width) / 2) solid var(--color-env);
+  border-bottom: calc(var(--env-height) / 2) solid var(--color-env2);
+  border-top: calc(var(--env-height) / 2) solid transparent;
+  border-bottom-left-radius: var(--env-border-radius);
+  border-bottom-right-radius: var(--env-border-radius);
+}
+
+/* ===== 편지지 ===== */
+.letter {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90%;
+  top: 5%;
+  border-radius: var(--env-border-radius);
+  box-shadow: 0 2px 26px rgba(0,0,0,.12);
+}
+
+.letter:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.00) 25%,
+      rgba(215,227,239,0.70) 55%,
+      rgba(215,227,239,1.00) 100%
+    );
+}
+
+/* 더미 텍스트 라인 */
+.words {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 14%;
+  background-color: #EEEFF0;
+}
+
+.words.line1 {
+  top: 15%;
+  width: 20%;
+  height: 7%;
+}
+
+.words.line2 { top: 30%; }
+.words.line3 { top: 50%; }
+.words.line4 { top: 70%; }
+
+/* ===== 상태별: open / close ===== */
+
+/* flap open */
+.open .flap {
+  transform: rotateX(180deg);
+  transition: transform .4s ease, z-index .6s;
+  z-index: 1;
+}
+
+/* flap close */
+.close .flap {
+  transform: rotateX(0deg);
+  transition: transform .4s .6s ease, z-index 1s;
+  z-index: 5;
+}
+
+/* letter stays down when closed */
+.close .letter {
+  transform: translateY(0px);
+  transition: transform .4s ease, z-index 1s;
+  z-index: 1;
+}
+
+/* letter rises when open */
+.open .letter {
+  transform: translateY(calc(-1 * (var(--env-height) / 3)));
+  transition: transform .4s .6s ease, z-index .6s;
+  z-index: 2;
+}
+
+/* ===== 하트 ===== */
+/* ===== 하트 ===== */
+/* ===== 하트 컨테이너 위치 재조정 (봉투 내부 정확히) ===== */
+.hearts {
+  position: absolute;
+  bottom: 60px; /* ⬅ 편지지 바로 위 지점 */
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 4;  /* letter 위, flap 아래 */
+  pointer-events: none;
+}
+
+/* ===== 하트 ===== */
+.heart {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  opacity: 0;
+  transform: translateX(-50%) scale(0.7);
+  pointer-events: none;
+}
+
+/* ❤️ 하트 모양 */
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 38px;
+  height: 55px;
+  background: var(--color-heart);
+  border-radius: 40px 40px 0 0;
+  top: 0;
+}
+
+/* 왼쪽 */
+.heart:before {
+  left: 38px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+/* 오른쪽 */
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+/* ===== 개별 하트 위치 ===== */
+.a1 { left: 30%; }
+.a2 { left: 50%; }
+.a3 { left: 70%; }
+
+/* ===== open 시 애니메이션 ===== */
+.open .heart {
+  opacity: 1;
+}
+
+/* ===== 핵심: transform 충돌 제거 ===== */
+.open .a1 {
+  animation:
+    heartUp1 1.4s ease-out forwards,
+    heartSway 1.2s ease-in-out infinite alternate 1.4s;
+}
+.open .a2 {
+  animation:
+    heartUp2 1.6s ease-out forwards,
+    heartSway 1.3s ease-in-out infinite alternate 1.6s;
+}
+.open .a3 {
+  animation:
+    heartUp3 1.8s ease-out forwards,
+    heartSway 1s ease-in-out infinite alternate 1.8s;
+}
+
+/* ===== 위로 올라가는 애니메이션 (transform 분리) ===== */
+@keyframes heartUp1 {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-160px) scale(0.8); }
+}
+
+@keyframes heartUp2 {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-180px) scale(0.85); }
+}
+
+@keyframes heartUp3 {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-200px) scale(0.9); }
+}
+
+/* ===== 좌우 흔들리는 애니메이션 ===== */
+@keyframes heartSway {
+  0% { transform: translateX(-4px); }
+  100% { transform: translateX(4px); }
+}
+
+
+/* ===== keyframes ===== */
+
+@keyframes slideUp {
+  0% { top: 0; }
+  100% { top: -600px; }
+}
+
+@keyframes sideSway {
+  0% { margin-left: 0px; }
+  100% { margin-left: 50px; }
+}
+
+/* ===== reset 버튼 스타일 (원본 유지) ===== */
+.reset {
+  text-align: center;
+}
+
+.reset button {
+  font-weight: 800;
+  transition: all .1s linear;
+  background-color: transparent;
+  border: solid 2px var(--color-env);
+  border-radius: 4px;
+  color: var(--color-env);
+  display: inline-block;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 5px;
+  padding: 10px;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.reset button:hover {
+  background-color: var(--color-env);
+  color: #fff;
+}
+
+/* ===== 팝업, 편지모달 (네 기존 디자인 유지) ===== */
+.popup-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-box {
+  background: white;
+  padding: 24px;
+  width: 80%;
+  max-width: 350px;
+  border-radius: 12px;
+  text-align: center;
+  animation: popup 0.3s ease;
+}
+
+@keyframes popup {
+  from { opacity: 0; transform: scale(0.8);}
+  to { opacity: 1; transform: scale(1);}
+}
+
+.popup-box input {
+  width: 85%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.popup-box button {
+  margin-top: 14px;
+  background: #844fe8;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: white;
+  cursor: pointer;
+}
+
+/* 편지 모달 */
+.letter-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.letter-modal {
+  background: #fff8e7;
+  padding: 24px;
+  width: 80%;
+  max-width: 420px;
+  border-radius: 12px;
+  animation: slideUpModal 0.3s ease;
+  position: relative;
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: #e48fb1;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+

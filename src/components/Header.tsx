@@ -1,19 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/hbd-wh';
-
-  const [highlightFirstTab, setHighlightFirstTab] = useState(false);
-
-  useEffect(() => {
-    const flag = sessionStorage.getItem('highlightTab');
-    if (flag === 'true') {
-      setHighlightFirstTab(true);
-    }
-  }, []);
 
   const tabs = [
     { label: '1. About Us', path: '/hbd-wh/about' },
@@ -34,11 +24,10 @@ function Header() {
         {tabs.map((tab, index) => (
           <button
             key={tab.path}
-            className={`tab-button ${location.pathname === tab.path ? 'active' : ''} 
-              ${highlightFirstTab && index === 0 ? 'highlight-tab' : ''}`}
+            className={`tab-button ${location.pathname === tab.path ? 'active' : ''}`}
             onClick={() => navigate(tab.path)}
           >
-            {tab.label} {highlightFirstTab && index === 0 && '👉'}
+            {tab.label}
           </button>
         ))}
       </nav>
