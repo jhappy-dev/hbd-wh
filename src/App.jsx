@@ -6,6 +6,7 @@ import AboutUs from './pages/AboutUs';
 import Present from './pages/Present';
 import Letter from './pages/Letter';
 import Header from './components/Header';
+import LetterContent from './pages/LetterContent';
 
 const ITEMS = Array.from({ length: 22 }).map((_, i) => ({
   id: `item-${i + 1}`,
@@ -24,6 +25,7 @@ function App() {
             <Route path="/hbd-wh/about" element={<AboutUs />} />
             <Route path="/hbd-wh/present" element={<Present />} />
             <Route path="/hbd-wh/letter" element={<Letter />} />
+            <Route path="/hbd-wh/letter-content" element={<LetterContent />} />
           </Routes>
         </div>
       </Router>

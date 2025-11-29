@@ -3,6 +3,29 @@ import { Container, Button } from "react-bootstrap";
 import { present } from "../data";
 import { useNavigate } from 'react-router-dom';
 
+const Snow = () => {
+  const snowflakes = Array.from({ length: 30 }); // 개수 증가
+
+  return (
+    <>
+      {snowflakes.map((_, i) => (
+        <div
+          key={i}
+          className="snowflake"
+          style={{
+            left: `${Math.random() * 100}%`,
+            animationDuration: `${Math.random() * 10 + 10}s`, // 더 느리게
+            animationDelay: `${Math.random() * 10}s`,
+            fontSize: `${Math.random() * 10 + 8}px`, // 작게
+          }}
+        >
+          ❄️
+        </div>
+      ))}
+    </>
+  );
+};
+
 const Present = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -39,27 +62,29 @@ const Present = () => {
   }, []);
 
   return (
-    <>
-        <div className="d-flex justify-content-end mb-4" style={{padding: "10px"}}>
-          <Button onClick={handleNextClick} variant="secondary"> <span> → </span> 처음으로</Button>
-        </div>
-      <Container
-        className="present-page"
+    <>      
+      <Container 
+        className="present-page christmas-theme"
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",   // 수평 가운데
-          justifyContent: "center", // 수직 가운데 (필요시)
           minHeight: "100vh",       // 화면 가운데 배치하려면
           textAlign: "center",
         }}
       >
-        <div>
-          이번에는 크리스마스 선물을 고를 시간이야! <br/>
-          생각해보니까 항상 우혁이는 크리스마스 선물 해줬는데, 나는 못 해줬더라구~ <br/>
-          그래서 올해는 크리스마스 선물도 챙겨주고싶어서 준비해봤어 히히  <br/>
+        <div id="lights" />
+        <div
+          style={{
+            marginBottom: "20px",
+            color: "black"
+          }}>
+          🎁 이번에는 크리스마스 선물을 고를 시간이야! 🎄<br/>
+          생각해보니까 항상 우혁이는 크리스마스 선물 해줬는데, 나는 못 해줬더라구~ 🎅<br/>
+          그래서 올해는 크리스마스 선물도 챙겨주고싶어서 준비해봤어 히히 <br/>
           기회는 한 번 뿐이니까 신중하게 [Stop] 버튼 눌러봐 ㅎㅎ <br/>
         </div>
+
         <div
           className="present-card"
           style={{

@@ -139,8 +139,6 @@ button:active {
 }
 
 .app-wrapper {
-  margin: 10px auto;
-  padding: 0 10px;
   max-width: 100%;
   box-sizing: border-box;
   font-family: "customFont", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -390,8 +388,8 @@ button:active {
 /* ===== 색상/값 (SCSS → CSS 변환) ===== */
 :root {
   --color-env: #e7c7a7;      /* 바깥 봉투 색 (밝은 갈색) */
-  --color-env2: rgb(202, 157, 111);     /* 포켓 아래쪽 음영 */
-  --color-flap: #b38456;     /* 봉투 뚜껑 (좀 더 진하게) */
+  --color-env2: rgb(225, 182, 139);     /* 포켓 아래쪽 음영 */
+  --color-flap: rgb(202, 157, 111);     /* 봉투 뚜껑 (좀 더 진하게) */
   --color-bg: #f4ebe2;       /* 화면 배경 (따뜻한 아이보리) */
   --color-heart: #d12929;    /* 하트 예쁜 빨강 */
 
@@ -420,7 +418,7 @@ body {
   border-bottom-right-radius: var(--env-border-radius);
   margin-left: auto;
   margin-right: auto;
-  top: 150px;
+  top: 100px;
   background-color: var(--color-flap);
   box-shadow: 0 4px 20px rgba(0,0,0,.2);
 }
@@ -530,6 +528,67 @@ body {
   transition: transform .4s .6s ease, z-index .6s;
   z-index: 2;
 }
+
+.letter-content-page {
+  padding: 40px 20px; /* 전체 페이지 여백 */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 한 줄(row) */
+.letter-content-page .row {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* 왼쪽 이미지 / 오른쪽 텍스트 */
+.letter-content-page .row.left {
+  flex-direction: row !important;
+}
+
+.letter-content-page .row.right {
+  flex-direction: row-reverse !important;
+}
+
+
+/* 이미지 스타일 */
+.letter-content-page .letter-image {
+  width: 240px !important;
+  flex-shrink: 0;
+}
+
+/* 텍스트 */
+.letter-content-page .row p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  text-align: left;
+  max-width: 300px;
+}
+
+/* 반응형: 모바일에서는 세로 배치 */
+@media (max-width: 768px) {
+  .letter-content-page .row {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  
+  .letter-content-page .row p {
+    text-align: center;
+  }
+
+  .letter-content-page .letter-image {
+    width: 150px !important;
+    flex-shrink: 0;
+  }
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 
 /* ===== 하트 ===== */
 /* ===== 하트 ===== */
@@ -753,3 +812,51 @@ body {
   cursor: pointer;
 }
 
+/* 크리스마스 테마 배경 - 해당 페이지에만 적용 */
+.christmas-theme {
+  background-attachment: fixed;
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+
+/* 선물 카드 장식 */
+.christmas-theme .present-card {
+  border: 3px dashed #fff;
+  box-shadow: 0 0 12px rgba(255,255,255,0.5), inset 0 0 12px rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* 눈 내리는 효과 */
+@keyframes snow {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(100vh); }
+}
+
+.christmas-theme .snowflake {
+  position: absolute;
+  top: -10px;
+  color: #fff;
+  font-size: 1.2em;
+  animation: snow 10s linear infinite;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* 선물 전구 */
+@keyframes lights {
+    0% {
+        background-position: top; 
+    } 
+    100% {
+        background-position: bottom;
+    }
+}
+
+#lights {
+  width: 100%;
+  height: 69px;
+  background: url("https://i.imgur.com/BdGY6tH.png") top center repeat-x;
+  animation: lights 1s infinite steps(2, jump-none);
+  margin-bottom: 20px;
+}
