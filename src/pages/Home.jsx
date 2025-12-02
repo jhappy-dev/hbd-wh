@@ -15,7 +15,6 @@ function Home() {
 
   const [typedMessage, setTypedMessage] = useState('');
   const [showTyping, setShowTyping] = useState(false);
-  const [isTypingDone, setIsTypingDone] = useState(false);
   const typingSpeed = 70;
 
   useEffect(() => {

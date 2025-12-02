@@ -25,13 +25,13 @@ fs.readdir(inputDir, (err, files) => {
     }
 
     const inputPath = path.join(inputDir, file);
-    const outputPath = path.join(outputDir, file.replace(ext, '.jpg')); // 통일해서 jpg로
+    const outputPath = path.join(outputDir, file); // 확장자 그대로 유지
 
     try {
       await sharp(inputPath)
-        .resize(size, size, { fit: 'cover' }) // 정사각형 자르기 + 리사이즈
-        .jpeg({ quality: 75 })               // JPG 품질 75%
-        .toFile(outputPath);
+      .resize(size, size, { fit: 'cover' })
+      .png({ compressionLevel: 9 })   // PNG로 출력
+      .toFile(outputPath);
 
       console.log(`변환 완료: ${file}`);
     } catch (error) {
